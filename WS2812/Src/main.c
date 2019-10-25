@@ -90,23 +90,35 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_SPI1_Init();
-  MX_SPI2_Init();
-  MX_SPI3_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+	WS2812_Init();
+	WS2812_send_data();
+	uint8_t R = 0, G = 0, B = 0;
+	uint32_t color = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+//		for(int i = 0; i< 256; i++){
+//			G=i;R=i;B=i;
+//			WS2812_data9X8bit_data(i,G, R, B);
+//		}
+//		WS2812_data9X8bit_data(1,255, 0, 0);
+//		WS2812_data9X8bit_data(2,0, 255, 0);
+//		WS2812_data9X8bit_data(3,255, 255, 255);
+		for( int i = 0; i < 1677215; i++){
+			WS2812_data9X8bit_data(1,i / 256 / 256 % 256, i / 256 % 256, i%256);
+			WS2812_send_data();
+			printf("\r\n--%d--",i);
+			HAL_Delay(1);
+		}
+		
+		
     /* USER CODE END WHILE */
-		WS2812_data9X8bit_data(0,255,0,0);
-		WS2812_data9X8bit_data(1,0,255,0);
-		WS2812_data9X8bit_data(2,0,0,255);
-		WS2812_send_data();
-		HAL_Delay(1000);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
